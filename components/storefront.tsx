@@ -87,7 +87,7 @@ export function Storefront({
     const confirmed =
       !!table && sessionStorage.getItem("cacique-confirmed-table") === table;
     setTableConfirmed(confirmed);
-    setChooseTable(!confirmed);
+    setChooseTable(false);
   }, [table]);
   const base = table ? `/mesa/${table}` : "";
   const link = (m: Menu) =>
