@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import catalog from "@/database/catalog.json";
-import { Storefront } from "@/components/storefront";
+import { LiveMenu } from "@/components/live-menu";
 import type { Product } from "@/types";
 
 const tables = Array.from({ length: 20 }, (_, i) =>
@@ -29,7 +29,7 @@ export default async function Page({
   if (table && !tables.includes(table)) notFound();
   if (slug && !menus.includes(slug)) notFound();
   return (
-    <Storefront
+    <LiveMenu
       key={`${table}/${slug}`}
       products={catalog as Product[]}
       tables={tables}

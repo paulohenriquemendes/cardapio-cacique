@@ -2000,3 +2000,90 @@ legend small {
 .management-card .product-art {
   height: 160px;
 }
+.photo-admin {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px 80px;
+}
+.photo-admin h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  margin: 12px 0;
+}
+.photo-menu-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.photo-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+.photo-filters select {
+  min-width: 0;
+  width: 100%;
+  padding: 12px;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+  gap: 20px;
+}
+.photo-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--cream);
+}
+.photo-card > div:last-child {
+  padding: 16px;
+}
+.photo-card h2 {
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 10px 0;
+}
+.photo-card .product-art {
+  height: 180px;
+}
+.photo-card .primary {
+  margin-top: 12px;
+}
+.photo-preview {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #eee6d7;
+  margin: 20px 0;
+}
+.photo-notice {
+  padding: 16px;
+  background: #edf3e8;
+  border: 1px solid #94a985;
+  border-radius: 8px;
+}
+.dialog-content .full + .full {
+  margin-top: 12px;
+}
+@media (max-width: 600px) {
+  .photo-admin {
+    padding: 0 16px 60px;
+    margin-top: 24px;
+  }
+  .photo-filters {
+    grid-template-columns: 1fr;
+  }
+  .photo-preview {
+    height: 220px;
+  }
+}

@@ -2,5 +2,8 @@ node_modules/
 .next/
 out/
 .env*
+!.env.example
 *.tsbuildinfo
 .wrangler/
+.local/
+supabase/.temp/
