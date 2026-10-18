@@ -20,15 +20,17 @@ A migração em `supabase/migrations/20261018122642_photo_management.sql` cria a
 
 ## Cloudflare Pages gratuito
 
-Projeto criado: `cardapio-cacique`, endereço `https://cardapio-cacique.pages.dev`. Esta demonstração usa upload direto dos arquivos de `out/` pelo painel da Cloudflare. O repositório guarda o código, mas os pushes não disparam publicação automaticamente nesta configuração.
+Projeto criado: `cardapio-cacique`, endereço `https://cardapio-cacique.pages.dev`. O workflow `.github/workflows/deploy.yml` publica pelo GitHub Actions a cada push na branch `main`, mantendo o projeto Pages existente. Também pode ser executado manualmente na aba **Actions → Publicar cardápio na Cloudflare → Run workflow**.
 
-Se criar outro projeto Pages com integração Git, escolha a branch `main`, comando de build `npm run build` e diretório de saída `out`, configurando as variáveis de `.env.example`. A integração Git publica cada push automaticamente. O projeto atual continua usando upload direto.
+O fluxo instala as dependências pelo lockfile, compila com Node.js 24, verifica TypeScript, identifica o commit em `/deployment.json`, publica `out/` com Wrangler e verifica o commit e as rotas principais em produção. Se a compilação falhar, a publicação não é executada e a versão anterior continua online. Confira o resultado e os logs na aba **Actions** do repositório.
+
+Variáveis do repositório (**Settings → Secrets and variables → Actions → Variables**): `CLOUDFLARE_ACCOUNT_ID`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (chave pública/publishable) e `NEXT_PUBLIC_PHOTO_ADMIN_EMAIL`. A credencial de publicação deve estar apenas no secret `CLOUDFLARE_API_TOKEN`, com permissão **Account → Cloudflare Pages → Edit** para a conta do Cacique. Nunca coloque esse token no código, em uma variável `NEXT_PUBLIC_` ou na pasta `public/`.
 
 Também é possível publicar `out/` por `npx wrangler pages deploy out --project-name cardapio-cacique`. Projetos criados por upload direto precisam de CI próprio para automação, pois não podem ser convertidos para integração Git.
 
 ## Atualizações
 
-Para fotografias, use `/admin/`: nenhuma alteração de código, commit ou deploy é necessária. Para dados e preços (em centavos), edite `database/catalog.json`, mantendo os IDs, menus e categorias corretos. Faça commit e push para salvar o código; depois execute `npm run build` e publique `out/` novamente no projeto Pages. Alterações no painel do sistema completo não sincronizam automaticamente com este catálogo independente.
+Para fotografias, use `/admin/`: nenhuma alteração de código, commit ou deploy é necessária. Para dados e preços (em centavos), edite `database/catalog.json`, mantendo os IDs, menus e categorias corretos. Faça commit e push na `main`; o GitHub Actions compila e publica a atualização automaticamente. Alterações no painel do sistema completo não sincronizam automaticamente com este catálogo independente.
 
 As fotografias dependem da disponibilidade e dos limites do Supabase. Se o serviço estiver indisponível, a consulta continua com o catálogo e ilustrações locais. Projetos gratuitos podem ser pausados por inatividade; a reativação é feita pelo dashboard Supabase.
 
