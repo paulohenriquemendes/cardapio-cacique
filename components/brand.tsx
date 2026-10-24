@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { assetPath } from "@/lib/asset-path";
 export function Brand({ href = "/" }: { href?: string }) {
   return (
     <Link
@@ -8,7 +9,7 @@ export function Brand({ href = "/" }: { href?: string }) {
     >
       <span className="official-brand">
         <img
-          src="/brand/cacique-marrom.png"
+          src={assetPath("/brand/cacique-marrom.png")}
           alt="Restaurante Cacique · Cozinha Regional · Desde 1965"
         />
       </span>

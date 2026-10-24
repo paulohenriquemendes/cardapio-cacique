@@ -28,9 +28,17 @@ Variáveis do repositório (**Settings → Secrets and variables → Actions →
 
 Também é possível publicar `out/` por `npx wrangler pages deploy out --project-name cardapio-cacique`. Projetos criados por upload direto precisam de CI próprio para automação, pois não podem ser convertidos para integração Git.
 
+## GitHub Pages gratuito
+
+Segunda hospedagem: `https://paulohenriquemendes.github.io/cardapio-cacique/`. O mesmo repositório público alimenta as duas hospedagens. O workflow `.github/workflows/github-pages.yml` gera uma exportação própria com `NEXT_PUBLIC_BASE_PATH=/cardapio-cacique` e publica a cada push na `main`. Em **Settings → Pages**, a origem deve ser **GitHub Actions**. Também é possível executar o workflow manualmente pela aba Actions.
+
+As imagens locais, o manifesto e a navegação usam o prefixo do GitHub Pages; o build da Cloudflare continua sem prefixo. Não publique o mesmo `out/` nos dois destinos. Para testar o build secundário localmente, defina `NEXT_PUBLIC_BASE_PATH=/cardapio-cacique` antes de `npm run build`; remova a variável para gerar o build da Cloudflare. Os jobs usam as mesmas variáveis públicas do Supabase. A publicação no GitHub Pages usa o token temporário do próprio GitHub Actions, sem uma nova chave persistente.
+
+Fotos enviadas pelo administrador ficam no Supabase e aparecem nos dois sites. As hospedagens não substituem um backup das fotos e não há troca automática entre os endereços em caso de indisponibilidade. Para manter um único QR Code ao trocar de provedor, conecte futuramente um domínio próprio.
+
 ## Atualizações
 
-Para fotografias, use `/admin/`: nenhuma alteração de código, commit ou deploy é necessária. Para dados e preços (em centavos), edite `database/catalog.json`, mantendo os IDs, menus e categorias corretos. Faça commit e push na `main`; o GitHub Actions compila e publica a atualização automaticamente. Alterações no painel do sistema completo não sincronizam automaticamente com este catálogo independente.
+Para fotografias, use `/admin/` na Cloudflare ou `/cardapio-cacique/admin/` no GitHub Pages: nenhuma alteração de código, commit ou deploy é necessária. Para dados e preços (em centavos), edite `database/catalog.json`, mantendo os IDs, menus e categorias corretos. Faça commit e push na `main`; o GitHub Actions compila e publica a atualização automaticamente nos dois destinos, em workflows independentes. Alterações no painel do sistema completo não sincronizam automaticamente com este catálogo independente.
 
 As fotografias dependem da disponibilidade e dos limites do Supabase. Se o serviço estiver indisponível, a consulta continua com o catálogo e ilustrações locais. Projetos gratuitos podem ser pausados por inatividade; a reativação é feita pelo dashboard Supabase.
 

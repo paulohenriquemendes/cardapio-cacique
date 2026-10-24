@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { assetPath } from "@/lib/asset-path";
 export const metadata: Metadata = {
   title: "Cacique · Cozinha Regional",
   description:
     "História, tradição e muito sabor. Conheça os cardápios do Restaurante Cacique.",
-  manifest: "/manifest.webmanifest",
+  manifest: assetPath("/manifest.webmanifest"),
 };
 export const viewport: Viewport = {
   width: "device-width",

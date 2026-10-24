@@ -1,5 +1,6 @@
 import { Product } from "@/types";
 import illustrations from "@/lib/illustrations.json";
+import { assetPath } from "@/lib/asset-path";
 export function ProductVisual({
   product: p,
   large = false,
@@ -31,7 +32,7 @@ export function ProductVisual({
       {image ? (
         <>
           <img
-            src={image}
+            src={assetPath(image)}
             alt={
               p.image
                 ? p.name
