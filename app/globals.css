@@ -1600,13 +1600,11 @@ legend small {
   overflow: hidden;
 }
 .official-brand img {
-  position: absolute;
-  width: 200%;
-  max-width: none;
-  height: auto;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -53%);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
 }
 .site-header {
   border-bottom: 4px solid #e7c477;

@@ -9,8 +9,10 @@ export function Brand({ href = "/" }: { href?: string }) {
     >
       <span className="official-brand">
         <img
-          src={assetPath("/brand/cacique-marrom.png")}
+          src={assetPath("/brand/cacique-alinhada-esquerda-marrom.png")}
           alt="Restaurante Cacique · Cozinha Regional · Desde 1965"
+          width={960}
+          height={324}
         />
       </span>
     </Link>

@@ -6,6 +6,18 @@ export const metadata: Metadata = {
   description:
     "História, tradição e muito sabor. Conheça os cardápios do Restaurante Cacique.",
   manifest: assetPath("/manifest.webmanifest"),
+  icons: {
+    icon: [32, 64].map((size) => ({
+      url: assetPath(`/brand/cacique-simbolo-amarelo-${size}.png`),
+      type: "image/png",
+      sizes: `${size}x${size}`,
+    })),
+    apple: [{
+      url: assetPath("/brand/cacique-simbolo-amarelo-180.png"),
+      sizes: "180x180",
+      type: "image/png",
+    }],
+  },
 };
 export const viewport: Viewport = {
   width: "device-width",
