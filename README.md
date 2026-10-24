@@ -2,6 +2,8 @@
 
 Versão independente para apresentar os dois cardápios do Restaurante Cacique. Inclui fotos ilustrativas identificadas, categorias, busca, detalhes e seleção local de itens. O cliente chama o garçom presencialmente: nenhum pedido ou chamado é enviado.
 
+No carrinho, **Mostrar ao garçom** abre a comanda para conferência: mesa selecionada, quantidades, códigos, tamanhos, opções/adicionais, observações por item e da comanda, preços e total. **Voltar e editar** preserva a seleção. O garçom confere essa tela com o cliente e registra o pedido no sistema que o restaurante já utiliza; esta versão não envia pedidos nem integra esse sistema.
+
 O site é exportado como HTML/CSS/JavaScript estático e continua na Cloudflare Pages. O acesso `/admin/` usa Supabase Auth para gerenciar fotografias no Supabase Storage. Não há servidor Next.js, criação de pedidos nem segredos no site. O catálogo vem de `database/catalog.json`, preservando o conteúdo dos PDFs; as fotografias enviadas no painel substituem as ilustrações sem republicar o site. O sistema completo permanece no repositório `cacique-novos-cardapios`.
 
 ## Administração de fotografias

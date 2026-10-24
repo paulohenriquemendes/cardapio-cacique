@@ -929,6 +929,73 @@ legend small {
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
 }
+.comanda-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 2px solid var(--brown);
+}
+.comanda-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.comanda-items > li {
+  padding: 20px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.comanda-item-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.comanda-quantity {
+  flex: 0 0 auto;
+  font-size: 24px;
+  color: var(--brown);
+}
+.comanda-item-heading h3 {
+  min-width: 0;
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+.comanda-product-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 7px 0;
+}
+.comanda-options {
+  font-size: 14px;
+  margin-top: 7px;
+}
+.comanda-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 12px;
+}
+.comanda-price span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.comanda-note {
+  margin: 20px 0;
+}
+.comanda-note h3 {
+  font-size: 18px;
+}
+.comanda-note p,
+.comanda .item-note {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.comanda .grand {
+  flex-wrap: wrap;
+  font-size: 22px;
+}
 .cart-item-title {
   display: flex;
   justify-content: space-between;

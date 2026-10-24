@@ -82,7 +82,7 @@ export function Storefront({
     [cart, setCart] = useState(false),
     [chooseTable, setChooseTable] = useState(false),
     [tableConfirmed, setTableConfirmed] = useState(false),
-    [callWaiter, setCallWaiter] = useState(false);
+    [showComanda, setShowComanda] = useState(false);
   useEffect(() => {
     const confirmed =
       !!table && sessionStorage.getItem("cacique-confirmed-table") === table;
@@ -448,7 +448,7 @@ export function Storefront({
           </div>
         </Modal>
       )}
-      {cart && (
+      {cart && !showComanda && (
         <Modal title="Seu pedido" onClose={() => setCart(false)}>
           <div className="dialog-content">
             <span className="eyebrow">
@@ -560,36 +560,76 @@ export function Storefront({
               <strong>{money(total)}</strong>
             </div>
             <p className="hint">
-              Sua seleção não é enviada. Chame o garçom para confirmar os itens
-              e fazer o pedido presencialmente.
+              Mostre sua comanda ao garçom para conferir e registrar o pedido.
             </p>
             <button
               className="primary full"
               disabled={!items.length}
-              onClick={() => setCallWaiter(true)}
+              onClick={() => setShowComanda(true)}
             >
-              Chamar o garçom
+              Mostrar ao garçom
               <ArrowRight size={18} />
             </button>
           </div>
         </Modal>
       )}
-      {callWaiter && (
-        <Modal title="Chamar o garçom" onClose={() => setCallWaiter(false)}>
-          <div className="dialog-content">
-            <h2>Peça ao garçom na sua mesa</h2>
-            <p>
-              Chame um garçom presencialmente e mostre sua seleção para
-              confirmar o pedido.
+      {showComanda && (
+        <Modal title="Comanda para o garçom" onClose={() => setShowComanda(false)}>
+          <div className="dialog-content comanda">
+            <span className="eyebrow">RESTAURANTE CACIQUE</span>
+            <h2>Sua comanda</h2>
+            <p className="muted">
+              Confira com o garçom. Ele registra o pedido no sistema do restaurante.
             </p>
-            <p className="hint">
-              Nenhum pedido ou chamado foi enviado pelo sistema.
-            </p>
+            <div className="comanda-meta">
+              <strong>{table && tableConfirmed ? `Mesa ${table}` : "Mesa não informada"}</strong>
+              <span>{count} {count === 1 ? "item" : "itens"}</span>
+            </div>
+            <ol className="comanda-items">
+              {items.map((item) => {
+                const p = products.find((p) => p.id === item.productId);
+                return (
+                  <li key={item.key}>
+                    <div className="comanda-item-heading">
+                      <strong className="comanda-quantity">{item.quantity}×</strong>
+                      <h3>{p?.name || "Produto indisponível"}</h3>
+                    </div>
+                    <p className="comanda-product-meta">
+                      {[p?.code ? `Cód. ${p.code}` : null, p && menuName(p.menu), p?.unit].filter(Boolean).join(" · ")}
+                    </p>
+                    {p?.options.map((group) => {
+                      const selected = group.values.filter((v) => item.options.includes(v.id));
+                      return selected.length ? (
+                        <p className="comanda-options" key={group.id}>
+                          <b>{group.name}:</b>{" "}
+                          {selected.map((v) => v.name + (v.price ? ` (+${money(v.price)})` : "")).join(", ")}
+                        </p>
+                      ) : null;
+                    })}
+                    {item.note && <p className="item-note">Obs.: {item.note}</p>}
+                    <div className="comanda-price">
+                      <span>{money(getPrice(item) / item.quantity)} por unidade</span>
+                      <strong>{money(getPrice(item))}</strong>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+            {note && (
+              <section className="comanda-note" aria-label="Observação da comanda">
+                <h3>Observação da comanda</h3>
+                <p>{note}</p>
+              </section>
+            )}
+            <div className="total-row grand">
+              <b>Total da comanda</b>
+              <strong>{money(total)}</strong>
+            </div>
             <button
-              className="primary full"
-              onClick={() => setCallWaiter(false)}
+              className="secondary full"
+              onClick={() => setShowComanda(false)}
             >
-              Voltar à minha seleção
+              Voltar e editar
             </button>
           </div>
         </Modal>
