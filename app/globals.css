@@ -936,6 +936,36 @@ legend small {
   padding: 16px 0;
   border-bottom: 2px solid var(--brown);
 }
+.comanda-identification {
+  min-width: 0;
+  padding: 16px;
+  margin: 20px 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.comanda-identification legend {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0 6px;
+}
+.comanda-identification .field {
+  margin: 0 0 14px;
+}
+.comanda-identification select {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  background: var(--cream);
+  color: var(--brown);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 16px;
+}
+.comanda-customer {
+  margin: 14px 0 0;
+  overflow-wrap: anywhere;
+}
 .comanda-items {
   list-style: none;
   padding: 0;

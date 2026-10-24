@@ -82,6 +82,8 @@ export function Storefront({
     [cart, setCart] = useState(false),
     [chooseTable, setChooseTable] = useState(false),
     [tableConfirmed, setTableConfirmed] = useState(false),
+    [customerName, setCustomerName] = useState(""),
+    [comandaTable, setComandaTable] = useState<string | null>(null),
     [showComanda, setShowComanda] = useState(false);
   useEffect(() => {
     const confirmed =
@@ -89,6 +91,13 @@ export function Storefront({
     setTableConfirmed(confirmed);
     setChooseTable(false);
   }, [table]);
+  useEffect(() => {
+    if (items.length === 0) {
+      setCustomerName("");
+      setComandaTable(null);
+    }
+  }, [items.length]);
+  const selectedComandaTable = comandaTable ?? (tableConfirmed ? table : "");
   const base = table ? `/mesa/${table}` : "";
   const link = (m: Menu) =>
     `${base}/${m === "CAFE_DA_MANHA" ? "cafe-da-manha" : "refeicoes"}`;
@@ -452,12 +461,37 @@ export function Storefront({
         <Modal title="Seu pedido" onClose={() => setCart(false)}>
           <div className="dialog-content">
             <span className="eyebrow">
-              {table && tableConfirmed
-                ? "MESA " + table
+              {selectedComandaTable
+                ? "MESA " + selectedComandaTable
                 : "RESTAURANTE CACIQUE"}
             </span>
             <h2>Seu pedido</h2>
             <p className="muted">Confira os sabores que vão à sua mesa.</p>
+            <fieldset className="comanda-identification">
+              <legend>Identificação da comanda (opcional)</legend>
+              <label className="field">
+                Seu nome (opcional)
+                <input
+                  type="text"
+                  maxLength={80}
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  autoComplete="off"
+                  placeholder="Como podemos chamar você?"
+                />
+              </label>
+              <label className="field">
+                Mesa da comanda (opcional)
+                <select
+                  value={selectedComandaTable || ""}
+                  onChange={(e) => setComandaTable(e.target.value)}
+                >
+                  <option value="">Prefiro não informar</option>
+                  {tables.map((t) => <option key={t} value={t}>Mesa {t}</option>)}
+                </select>
+              </label>
+              <p className="hint">Você pode continuar sem preencher. O nome vale somente para esta seleção.</p>
+            </fieldset>
             {items.length === 0 ? (
               <p>Seu pedido ainda está vazio.</p>
             ) : (
@@ -582,9 +616,12 @@ export function Storefront({
               Confira com o garçom. Ele registra o pedido no sistema do restaurante.
             </p>
             <div className="comanda-meta">
-              <strong>{table && tableConfirmed ? `Mesa ${table}` : "Mesa não informada"}</strong>
+              <strong>{selectedComandaTable ? `Mesa ${selectedComandaTable}` : "Mesa não informada"}</strong>
               <span>{count} {count === 1 ? "item" : "itens"}</span>
             </div>
+            {customerName.trim() && (
+              <p className="comanda-customer"><b>Cliente:</b> {customerName.trim()}</p>
+            )}
             <ol className="comanda-items">
               {items.map((item) => {
                 const p = products.find((p) => p.id === item.productId);
