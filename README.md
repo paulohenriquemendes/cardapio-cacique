@@ -8,6 +8,10 @@ O cliente pode informar nome e mesa da comanda na revisão, ambos opcionais. A m
 
 O site é exportado como HTML/CSS/JavaScript estático e continua na Cloudflare Pages. O acesso `/admin/` usa Supabase Auth para gerenciar fotografias no Supabase Storage. Não há servidor Next.js, criação de pedidos nem segredos no site. O catálogo vem de `database/catalog.json`, preservando o conteúdo dos PDFs; as fotografias enviadas no painel substituem as ilustrações sem republicar o site. O sistema completo permanece no repositório `cacique-novos-cardapios`.
 
+## Alergênicos
+
+`database/allergens.json` é um recorte da planilha de revisão fornecida, vinculado ao UUID de cada produto de Refeições. O cruzamento usou código e nome, incluindo variantes de saladas; para bebidas sem código, usou apresentação e tipo. Os preços foram conferidos. `source` guarda os itens identificados nas fontes e `review` as demais marcações da proposta, ainda a confirmar. Nenhum registro do Café da Manhã é inferido a partir de Refeições. A atualização da planilha não republica os dados automaticamente.
+
 ## Administração de fotografias
 
 Acesse `https://cardapio-cacique.pages.dev/admin/` com a credencial fornecida separadamente. Escolha Café da manhã ou Refeições, busque por nome/código, filtre a categoria e clique em **Enviar foto** ou **Trocar foto**. Selecione JPG, PNG ou WebP de até 20 MB, confira a prévia e clique em **Salvar fotografia**. O navegador reduz a dimensão máxima para 1600 px e converte para JPEG antes de enviar (limite de 5 MB no armazenamento).

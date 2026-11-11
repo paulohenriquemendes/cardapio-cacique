@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { ProductVisual } from "./product-visual";
+import { AllergenLegend, ProductAllergens } from "./allergens";
 import { useMemo, useState, useEffect } from "react";
 import {
   ArrowRight,
@@ -260,6 +261,7 @@ export function Storefront({
               <span className="intro-ornament">❧</span>
             </div>
           </div>
+          <AllergenLegend available={menu === "REFEICOES"} />
           <div className="menu-toolbar">
             <label className="search">
               <Search size={19} />
@@ -339,6 +341,7 @@ export function Storefront({
                                   {p.code ? "CÓD. " + p.code : c}
                                 </small>
                                 <h3>{p.name}</h3>
+                                <ProductAllergens id={p.id} />
                                 {p.description && <p>{p.description}</p>}
                                 <span className="unit">{p.unit || " "}</span>
                               </div>

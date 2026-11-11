@@ -1,5 +1,6 @@
 "use client";
 import { ProductVisual } from "./product-visual";
+import { ProductAllergens } from "./allergens";
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { Product, CartItem } from "@/types";
@@ -44,6 +45,7 @@ export function ProductDetail({
           <span>{p.unit}</span>
           <strong>{money(p.price)}</strong>
         </div>
+        <ProductAllergens id={p.id} detail />
         {p.options.map((g) => {
           const count = g.values.filter((v) => options.includes(v.id)).length;
           return (
